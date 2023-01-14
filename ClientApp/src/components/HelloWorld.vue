@@ -1,9 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
-defineProps<{ msg: string }>()
+interface Weather {
+  date: Date;
+  temperatureC: number;
+  temperatureF: number;
+  summary: string;
+}
+onMounted(async () => {
+  const response = await axios.get<Array<Weather>>("/WeatherForecast");
+  console.log(response.data);
+});
 
-const count = ref(0)
+defineProps<{ msg: string }>();
+
+const count = ref(0);
 </script>
 
 <template>
